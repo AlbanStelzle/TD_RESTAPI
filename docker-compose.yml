@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - egg
+
+  mongodb:
+    image: "mongo:latest"
+    container_name: "mongodb"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: "eggs_database"
+    networks:
+      - egg
+networks:
+  egg:
+    name: egg-network
